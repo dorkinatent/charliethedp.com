@@ -26,6 +26,10 @@ nav a.active{color:var(--cream)}
 /* PAGE TITLE */
 .page-title-bar{padding:2.5rem 3rem 1.5rem;text-align:center}
 .page-title-bar .section-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.4em;color:var(--amber);margin-bottom:0}
+.section-nav{display:flex;justify-content:center;gap:.75rem;margin-top:1.25rem}
+.section-nav-btn{display:inline-block;padding:.55rem 1.5rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;border:1px solid rgba(212,160,84,.3);border-radius:4px;color:var(--muted);text-decoration:none;transition:all .2s}
+.section-nav-btn:hover{color:var(--cream);border-color:rgba(212,160,84,.5);background:rgba(212,160,84,.06);text-decoration:none}
+.section-nav-btn.active{color:var(--amber);border-color:var(--amber)}
 
 /* HERO */
 .hero{padding:7rem 3rem 5rem;position:relative;border-bottom:1px solid rgba(255,255,255,.03)}
