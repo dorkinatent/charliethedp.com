@@ -7,139 +7,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#060608;--bg2:#0c0c10;--surface:#111118;
-  --amber:#d4a054;--amber-dim:#b8863a;
-  --cream:#e8dcc8;--muted:#7a7680;--faint:#3a3842;
-  --display:'Cormorant Garamond',Georgia,serif;
-  --body:'DM Sans',system-ui,sans-serif;
-}
-html{background:var(--bg);color:var(--cream);scroll-behavior:smooth}
-body{font-family:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased}
-::selection{background:var(--amber);color:var(--bg)}
-a{color:var(--amber);text-decoration:none}
-a:hover{text-decoration:underline}
-img{display:block;max-width:100%}
-
-/* HEADER */
-header{padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.04);position:sticky;top:0;z-index:100;background:rgba(6,6,8,.92);backdrop-filter:blur(16px)}
-.logo{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--cream);text-decoration:none}
-.logo:hover{text-decoration:none}
-.logo span{color:var(--amber)}
-nav{display:flex;gap:2rem;align-items:center}
-nav a{font-size:.68rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);text-decoration:none}
-nav a:hover{color:var(--cream);text-decoration:none}
-
-/* HERO */
-.hero{padding:7rem 3rem 5rem;position:relative;border-bottom:1px solid rgba(255,255,255,.03)}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 60% at 60% 20%,rgba(212,160,84,.05) 0%,transparent 60%);pointer-events:none}
-.hero-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.4em;color:var(--amber);margin-bottom:1.25rem}
-.hero h1{font-family:var(--display);font-size:clamp(2.8rem,6.5vw,5.5rem);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.25rem}
-.hero h1 em{font-style:italic;color:var(--amber);font-weight:400}
-.hero-sub{font-size:1rem;color:var(--muted);max-width:500px;line-height:1.75}
-.hero-rule{width:50px;height:1px;background:var(--amber);margin-top:2.5rem;opacity:.4}
-
-/* SECTIONS */
-section{padding:4.5rem 3rem}
-.section-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.4em;color:var(--amber);margin-bottom:.5rem}
-.section-title{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.15;margin-bottom:2rem}
-.section-title span{color:var(--muted)}
-.divider{border:none;border-top:1px solid rgba(255,255,255,.04);margin:0}
-
-/* REEL */
-.reel-embed{position:relative;width:100%;max-width:900px;aspect-ratio:16/9;margin:0 auto;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:#000}
-.reel-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-
-/* WORK GRID */
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.work-card{position:relative;border-radius:5px;overflow:hidden;aspect-ratio:16/9;background:var(--surface);border:1px solid rgba(255,255,255,.04);display:block;text-decoration:none;color:var(--cream)}
-.work-card:hover{text-decoration:none;border-color:rgba(212,160,84,.2)}
-.work-card:hover .work-overlay{opacity:1}
-.work-card:hover .work-thumb{transform:scale(1.03)}
-.work-thumb{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.23,1,.32,1)}
-.work-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,6,8,.92) 0%,rgba(6,6,8,.4) 40%,transparent 70%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem}
-.work-overlay h3{font-family:var(--display);font-size:1.05rem;font-weight:500;line-height:1.25}
-.work-overlay .play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(212,160,84,.85);display:flex;align-items:center;justify-content:center}
-.work-overlay .play-icon svg{width:16px;height:16px;fill:var(--bg);margin-left:2px}
-/* always show overlay on mobile */
-@media(hover:none){.work-overlay{opacity:1;background:linear-gradient(0deg,rgba(6,6,8,.85) 0%,transparent 55%)}.work-overlay .play-icon{display:none}}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
-.about-text{color:var(--muted);font-size:.92rem;line-height:1.85;max-width:560px}
-.about-text p+p{margin-top:.8rem}
-.about-sidebar h4{font-family:var(--display);font-size:1.1rem;font-weight:500;color:var(--cream);margin-bottom:.5rem;margin-top:1.5rem}
-.about-sidebar h4:first-child{margin-top:0}
-.about-sidebar ul{list-style:none}
-.about-sidebar li{font-size:.82rem;color:var(--muted);padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,.03)}
-.about-sidebar li:last-child{border-bottom:none}
-.about-links{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
-.btn{display:inline-block;padding:.7rem 1.75rem;font-size:.78rem;letter-spacing:.05em;border-radius:4px;text-decoration:none;font-weight:600}
-.btn:hover{text-decoration:none}
-.btn-primary{background:var(--amber);color:var(--bg)}
-.btn-primary:hover{background:var(--amber-dim)}
-.btn-outline{border:1px solid rgba(212,160,84,.3);color:var(--amber)}
-.btn-outline:hover{background:rgba(212,160,84,.06)}
-
-/* CONTACT */
-.contact-section{text-align:center;padding:5rem 3rem}
-.contact-sub{color:var(--muted);max-width:440px;margin:0 auto 2rem;font-size:.92rem;line-height:1.75}
-
-/* FOOTER */
-footer{padding:2rem 3rem;text-align:center;color:var(--faint);font-size:.7rem;letter-spacing:.05em;border-top:1px solid rgba(255,255,255,.03)}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .work-grid{grid-template-columns:repeat(2,1fr)}
-  .about-grid{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  header{padding:1rem 1.25rem}
-  nav{gap:1.25rem}
-  nav a{font-size:.6rem;letter-spacing:.12em}
-  .hero{padding:4rem 1.25rem 3rem}
-  section{padding:3rem 1.25rem}
-  .work-grid{grid-template-columns:1fr}
-  .contact-section{padding:3.5rem 1.25rem}
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <a href="#" class="logo">Charlie Anderson<span>.</span></a>
+  <a href="/" class="logo">Charlie Anderson<span>.</span></a>
   <nav>
-    <a href="#reel">Reel</a>
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="/" class="active">Work</a>
+    <a href="reel.html">Reel</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
     <a href="http://www.imdb.com/name/nm2381085/" target="_blank" rel="noopener">IMDB</a>
   </nav>
 </header>
 
-<div class="hero">
-  <p class="hero-label">Director of Photography &bull; Cinematographer &bull; DIT</p>
-  <h1>Stories told<br>through <em>light.</em></h1>
-  <p class="hero-sub">Award-winning cinematographer with ten feature-length films and countless music videos, commercials, and short films. Currently bridging cinematic craft and developer experience at Frame.io&nbsp;(Adobe).</p>
-  <div class="hero-rule"></div>
+<div class="page-title-bar">
+  <p class="section-label">CHARLIE ANDERSON | DIRECTOR OF PHOTOGRAPHY</p>
 </div>
 
-<hr class="divider">
-
-<!-- REEL -->
-<section id="reel">
-  <p class="section-label">Showreel</p>
-  <h2 class="section-title">The <span>Reel</span></h2>
-  <div class="reel-embed">
-    <iframe src="https://www.youtube.com/embed/xLoARG84xZQ?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- WORK -->
+<!-- COMMERCIAL & BRANDED -->
 <section id="work" style="background:var(--bg2)">
   <p class="section-label">Selected Work</p>
   <h2 class="section-title">Commercial &amp; <span>Branded</span></h2>
@@ -489,49 +376,8 @@ footer{padding:2rem 3rem;text-align:center;color:var(--faint);font-size:.7rem;le
   </div>
 </section>
 
-<hr class="divider">
-
-<!-- ABOUT -->
-<section id="about" style="background:var(--bg2)">
-  <p class="section-label">Background</p>
-  <h2 class="section-title">About <span>Charlie</span></h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>Charlie Anderson is an award-winning cinematographer with ten feature-length films and countless music videos, commercials and short films under his belt.</p>
-      <p>Anderson got his start as a DIT in New York and quickly became one of the most in-demand DITs in the industry, known for his eye for color and attention to detail. This led to work with acclaimed DPs such as Reed Morano, ASC and Nicholas Karakatsanis. While on their sets, Charlie learned different techniques and methods of shooting for a wide variety of scenarios, fine-tuning his own unique, personal style.</p>
-      <p>His work spans Smith's <em>6 Degrees of Hell</em>, <em>Camp Dread</em>, and <em>Zombie Killers: Elephant's Graveyard</em>. He shot the critically-acclaimed <em>My Amityville Horror</em> and has directed photography for <em>Heaven Burns</em>, <em>Swooped</em>, and <em>You'll Know My Name</em>.</p>
-      <p>Charlie has been named by <em>Hollywood Film</em> as a "DP to watch out for" and works extensively with Maximum Effort on commercial content for Ryan Reynolds, Rob McElhenney, Mint Mobile, Aviation Gin, MNTN, and Wrexham AFC.</p>
-      <p>He currently serves as Principal, Partnerships &amp; Developer Experience at Frame.io (Adobe), where he leads a team bridging the gap between production workflows and developer tooling.</p>
-    </div>
-    <div class="about-sidebar">
-      <h4>Camera Systems</h4>
-      <ul><li>RED V-Raptor XL</li><li>RED KomodoX</li><li>ARRI ALEXA Mini LF</li><li>Sony VENICE 2</li></ul>
-      <h4>Glass</h4>
-      <ul><li>Leica Summicron-C Primes</li><li>Cooke S4/i &amp; MiniS4</li><li>Zeiss CP.2 / CP.3</li><li>Angénieux EZ Zooms</li></ul>
-      <h4>Based In</h4>
-      <ul><li>Stamford, CT</li><li>Available worldwide</li></ul>
-      <div class="about-links">
-        <a href="http://www.imdb.com/name/nm2381085/" target="_blank" rel="noopener" class="btn btn-outline">IMDB Profile</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <p class="section-label">Get in Touch</p>
-  <h2 class="section-title">Let's <span>work together.</span></h2>
-  <p class="contact-sub">Available for DP, DIT, and production technology work worldwide. Reach out to discuss your next project.</p>
-  <div class="contact-actions">
-    <a href="mailto:charlie@charliethedp.com" class="btn btn-primary">Say Hello →</a>
-    <a href="http://www.imdb.com/name/nm2381085/" target="_blank" rel="noopener" class="btn btn-outline">IMDB</a>
-  </div>
-</section>
-
 <footer>
-  <p>© 2026 Charlie Anderson · Director of Photography · Stamford, CT</p>
+  <p>&copy; 2026 Charlie Anderson &middot; Director of Photography &middot; Stamford, CT</p>
 </footer>
 
 </body>
