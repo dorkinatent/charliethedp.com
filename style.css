@@ -114,3 +114,17 @@ footer{padding:2rem 3rem;text-align:center;color:var(--faint);font-size:.7rem;le
   .work-grid{grid-template-columns:1fr}
   .contact-section{padding:3.5rem 1.25rem}
 }
+
+/* VIDEO MODAL */
+.video-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:2rem;opacity:0;transition:opacity .2s ease}
+.video-modal.open{display:flex;opacity:1}
+.video-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.92);cursor:pointer}
+.video-modal-content{position:relative;width:100%;max-width:min(90vw,calc(90vh * 16/9));aspect-ratio:16/9;background:#000;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.video-modal-content iframe{width:100%;height:100%;border:0;display:block}
+.video-modal-close{position:absolute;top:-2.5rem;right:0;width:2rem;height:2rem;padding:0;background:transparent;border:0;color:var(--cream);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.7;transition:opacity .15s}
+.video-modal-close:hover{opacity:1}
+.video-modal-close svg{width:100%;height:100%}
+body.modal-open{overflow:hidden}
+
+/* Make work-card button variant match anchor variant */
+button.work-card{border:0;padding:0;background:transparent;font:inherit;color:inherit;cursor:pointer;text-align:left;width:100%;display:block}
