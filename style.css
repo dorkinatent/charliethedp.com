@@ -19,7 +19,7 @@
   --mono:'IBM Plex Mono',monospace;
 }
 html{background:var(--bg)}
-body{background:var(--bg);color:var(--text);font-family:'Archivo',sans-serif;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:Archivo,sans-serif;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 h1,h2,h3{font-weight:400}
@@ -43,11 +43,12 @@ h1,h2,h3{font-weight:400}
 
 /* ---------- client ticker ---------- */
 .ticker-wrap{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:13px 0;overflow:hidden}
-.ticker{display:flex;width:max-content;animation:tickerScroll 45s linear infinite}
+.ticker{display:flex;width:max-content;animation:ticker-scroll 45s linear infinite}
 .ticker-half{display:flex;align-items:center;flex-shrink:0}
 .ticker-name{padding:0 20px;font:400 11px var(--mono);letter-spacing:0.18em;color:var(--text-2);white-space:nowrap}
 .ticker-x{color:var(--accent);font-size:11px}
-@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker{animation:none;transform:none}}
 
 /* ---------- letterboxed featured frame ---------- */
 .letterbox{background:#000;padding:var(--bar) 0}
@@ -57,7 +58,7 @@ h1,h2,h3{font-weight:400}
 .featured-info{position:absolute;left:var(--gutter);bottom:clamp(18px,2.4vw,30px);right:120px;display:flex;flex-direction:column;gap:10px}
 .featured-kicker{font:400 11px var(--mono);letter-spacing:0.2em;color:var(--accent)}
 .featured-title{font-family:var(--display);font-size:clamp(22px,3.2vw,42px);line-height:1.02;letter-spacing:0.01em}
-.play-btn{position:absolute;right:var(--gutter);bottom:clamp(20px,2.6vw,34px);display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--accent);border-radius:50%;font-size:13px;color:var(--bg)}
+.play-btn{position:absolute;right:var(--gutter);bottom:clamp(20px,2.6vw,34px);display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--accent);font-size:13px;color:var(--bg)}
 
 /* ---------- section headers ---------- */
 .section-head{padding:clamp(32px,4vw,52px) var(--gutter) 12px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
@@ -108,21 +109,21 @@ h1,h2,h3{font-weight:400}
 .portrait img{width:100%;height:100%;object-fit:cover}
 .portrait-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font:400 11px var(--mono);letter-spacing:0.2em;color:var(--text-3);text-align:center;padding:0 20px}
 .portrait-caption{font:400 10px var(--mono);letter-spacing:0.18em;color:var(--text-3)}
-.bio{max-width:660px;display:flex;flex-direction:column;gap:20px;font:400 16px/1.75 'Archivo',sans-serif;color:var(--body-copy)}
+.bio{max-width:660px;display:flex;flex-direction:column;gap:20px;font:400 16px/1.75 Archivo,sans-serif;color:var(--body-copy)}
 .bio .lede{font-size:19px;color:var(--text)}
 .gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;padding:clamp(32px,4vw,56px) var(--gutter) 44px}
 .gear-col{border-top:1px solid var(--hairline);padding-top:18px;display:flex;flex-direction:column;gap:10px}
 .gear-label{font:400 10px var(--mono);letter-spacing:0.2em;color:var(--accent)}
 .gear-label.stacked{margin-top:10px}
-.gear-body{font:400 14px/1.9 'Archivo',sans-serif;color:var(--body-copy)}
-.gear-links{font:400 14px/1.9 'Archivo',sans-serif;display:flex;flex-direction:column}
+.gear-body{font:400 14px/1.9 Archivo,sans-serif;color:var(--body-copy)}
+.gear-links{font:400 14px/1.9 Archivo,sans-serif;display:flex;flex-direction:column}
 .gear-links a{color:var(--body-copy)}
 .gear-links a:hover{color:var(--accent)}
 .gear-btn{margin-top:8px;font:400 11px var(--mono);letter-spacing:0.16em;color:var(--text);border:1px solid var(--btn-border);padding:12px 20px;text-align:center}
 .gear-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ---------- contact ---------- */
-.contact-intro{margin-top:24px;max-width:520px;font:400 16px/1.6 'Archivo',sans-serif;color:var(--text-2)}
+.contact-intro{margin-top:24px;max-width:520px;font:400 16px/1.6 Archivo,sans-serif;color:var(--text-2)}
 .contact-rows{padding:clamp(16px,2.4vw,32px) var(--gutter) 40px;display:flex;flex-direction:column}
 .contact-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--hairline);color:var(--text)}
 .contact-rows .contact-row:last-child{border-bottom:1px solid var(--hairline)}

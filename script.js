@@ -23,8 +23,21 @@
   }
 
   document.querySelectorAll('[data-video]').forEach(function (el) {
-    el.addEventListener('click', function () {
+    /* tiles and the featured frame are non-interactive elements — make
+       them keyboard-operable */
+    if (!/^(a|button)$/i.test(el.tagName)) {
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+    }
+    function launchVideo() {
       openVideo(el.dataset.video, el.dataset.title);
+    }
+    el.addEventListener('click', launchVideo);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        launchVideo();
+      }
     });
   });
   lightbox.querySelector('.lightbox-close').addEventListener('click', closeVideo);

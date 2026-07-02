@@ -48,16 +48,25 @@ function updateFeatured(html, id) {
   const client = attr(/<p class="tile-client">([\s\S]*?)<\/p>/, '');
   const thumb = attr(/img src="([^"]+)"/, `https://img.youtube.com/vi/${id}/maxresdefault.jpg`);
 
-  return html.replace(
+  let matched = false;
+  const out = html.replace(
     /(<div class="featured" data-video=")[^"]*(" data-title=")[^"]*("[\s\S]*?<img src=")[^"]*(" alt=")[^"]*("[\s\S]*?<div class="featured-kicker">)[^<]*(<\/div>\s*<div class="featured-title">)[^<]*(<\/div>)/,
-    (_, g1, g2, g3, g4, g5, g6, g7) =>
-      g1 + id + g2 + dataTitle + g3 + thumb + g4 + dataTitle + g5 +
-      'FEATURED — ' + client + g6 + title + g7,
+    (_, g1, g2, g3, g4, g5, g6, g7) => {
+      matched = true;
+      return g1 + id + g2 + dataTitle + g3 + thumb + g4 + dataTitle + g5 +
+        'FEATURED — ' + client + g6 + title + g7;
+    },
   );
+  if (!matched) {
+    throw new Error(`Featured frame markup did not match — cannot rotate to ${id}`);
+  }
+  return out;
 }
 
 function sortGrids(html) {
-  return html.replace(/(<div class="grid[^>]*>)([\s\S]*?)(\n  <\/div>)/g, (m, open, inner, close) => {
+  let grids = 0;
+  const out = html.replace(/(<div class="grid[^>]*>)([\s\S]*?)(\n  <\/div>)/g, (m, open, inner, close) => {
+    grids++;
     const tiles = inner.match(TILE_RE) || [];
     if (tiles.length < 2) return m;
     const dated = [];
@@ -71,6 +80,12 @@ function sortGrids(html) {
     const sorted = [...dated.map((x) => x.t), ...undated];
     return open + '\n' + sorted.map((t) => '    ' + t).join('\n') + close;
   });
+  if (grids === 0) {
+    console.warn('sortGrids: no grid blocks matched — markup drift? Grids left unsorted.');
+  } else {
+    console.log(`Sorted ${grids} grid(s)`);
+  }
+  return out;
 }
 
 (async () => {

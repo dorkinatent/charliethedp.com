@@ -2,7 +2,8 @@ name: Update featured video
 
 on:
   schedule:
-    - cron: '0 10 * * *' # daily at 6 AM ET (10:00 UTC during EDT)
+    - cron: '0 10 * * *' # 6 AM EDT (UTC-4, roughly Mar-Nov)
+    - cron: '0 11 * * *' # 6 AM EST (UTC-5, roughly Nov-Mar)
   workflow_dispatch:
 
 permissions:
