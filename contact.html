@@ -3,55 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact | Charlie Anderson - Director of Photography</title>
+<title>Contact | Charlie Anderson</title>
+<meta name="description" content="Contact Charlie Anderson — Director of Photography. Available for DP, DIT, and production technology work worldwide.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,300..900;1,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo">Charlie Anderson<span>.</span></a>
-  <nav>
-    <a href="/">Work</a>
-    <a href="reel.html">Reel</a>
-    <a href="about.html">About</a>
-    <a href="contact.html" class="active">Contact</a>
-    <a href="http://www.imdb.com/name/nm2381085/" target="_blank" rel="noopener">IMDB</a>
+<header class="nav">
+  <a href="index.html" class="wordmark">CHARLIE ANDERSON<span class="accent">.</span></a>
+  <nav class="nav-links">
+    <a href="index.html">WORK</a>
+    <a href="reel.html">REEL</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html" class="active">CONTACT</a>
+    <a href="https://www.imdb.com/name/nm2381085/" target="_blank" rel="noopener">IMDB ↗</a>
   </nav>
 </header>
 
-<section class="contact-section">
-  <p class="section-label">Get in Touch</p>
-  <h2 class="section-title">Let's <span>work together.</span></h2>
-  <p class="contact-sub">Available for DP, DIT, and production technology work worldwide. Reach out to discuss your next project.</p>
+<div class="page-head contact">
+  <div class="kicker">GET IN TOUCH</div>
+  <h1>LET'S WORK<br>TOGETHER<span class="accent">.</span></h1>
+  <div class="contact-intro">Available for DP, DIT, and production technology work worldwide. Reach out to discuss your next project.</div>
+</div>
 
-  <div class="contact-info">
-    <p><a href="mailto:CharlieAndersonDP@gmail.com">CharlieAndersonDP@gmail.com</a></p>
-    <p><a href="tel:+14106271480">410.627.1480</a></p>
-    <p><a href="https://www.instagram.com/charliethedp/" target="_blank" rel="noopener">Instagram @charliethedp</a></p>
+<div class="contact-rows">
+  <a href="mailto:CharlieAndersonDP@gmail.com" class="contact-row">
+    <span class="contact-label">EMAIL</span>
+    <span class="contact-value">CHARLIEANDERSONDP@GMAIL.COM</span>
+  </a>
+  <a href="tel:+14106271480" class="contact-row">
+    <span class="contact-label">PHONE</span>
+    <span class="contact-value">410.627.1480</span>
+  </a>
+  <a href="https://www.instagram.com/charliethedp/" target="_blank" rel="noopener" class="contact-row">
+    <span class="contact-label">INSTAGRAM</span>
+    <span class="contact-value">@CHARLIETHEDP ↗</span>
+  </a>
+  <a href="https://www.imdb.com/name/nm2381085/" target="_blank" rel="noopener" class="contact-row">
+    <span class="contact-label">IMDB</span>
+    <span class="contact-value">NM2381085 ↗</span>
+  </a>
+  <div class="contact-row">
+    <span class="contact-label">UNION</span>
+    <span class="contact-value">IATSE LOCAL 600</span>
   </div>
+</div>
 
-  <form class="contact-form" onsubmit="return false;">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" placeholder="Your name" required>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="your@email.com" required>
-
-    <label for="subject">Subject</label>
-    <input type="text" id="subject" name="subject" placeholder="Project inquiry, collaboration, etc.">
-
-    <label for="message">Message</label>
-    <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
-
-    <button type="submit" class="btn btn-primary">Send Message</button>
-  </form>
-</section>
-
-<footer>
-  <p>&copy; 2026 Charlie Anderson &middot; Director of Photography &middot; Stamford, CT</p>
+<footer class="footer">
+  <span>© 2026 CHARLIE ANDERSON</span><span>STAMFORD, CT — AVAILABLE WORLDWIDE</span>
 </footer>
 
 </body>
