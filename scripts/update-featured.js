@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 /**
- * Rotates the featured frame on index.html to the most-viewed video on the
- * page (YouTube Data API v3) and orders each grid's tiles by
- * data-added-date, newest first (tiles without a date keep their relative
- * order at the end).
+ * Rotates the featured frame on index.html to the most-viewed COMMERCIAL
+ * video published within the last 6 months (YouTube Data API v3), falling
+ * back to the most-viewed commercial of all time if none qualify. Also
+ * orders each grid's tiles by data-added-date, newest first (tiles without
+ * a date keep their relative order at the end).
+ *
+ * Note: the public API only exposes cumulative view counts, so "popular in
+ * the last 6 months" is approximated as "published in the last 6 months,
+ * ranked by total views".
  *
  * Dependency-free: needs Node 18+ (global fetch) and YOUTUBE_API_KEY.
  */
@@ -17,29 +22,41 @@ if (!API_KEY) {
   process.exit(1);
 }
 
+const SIX_MONTHS_MS = 183 * 24 * 60 * 60 * 1000;
 const TILE_RE = /<article class="tile"[\s\S]*?<\/article>|<a class="tile tile-ig"[\s\S]*?<\/a>/g;
 
-async function fetchViewCounts(ids) {
-  const counts = new Map();
+/** Video ids appearing in the Commercial & Branded section only. */
+function commercialIds(html) {
+  const start = html.indexOf('COMMERCIAL &amp; BRANDED');
+  const end = html.indexOf('FILM &amp; MUSIC');
+  if (start === -1) throw new Error('Commercial section heading not found — markup drift?');
+  const slice = html.slice(start, end === -1 ? undefined : end);
+  return [...new Set([...slice.matchAll(/data-video="([^"]+)"/g)].map((m) => m[1]))];
+}
+
+async function fetchVideoData(ids) {
+  const data = new Map();
   for (let i = 0; i < ids.length; i += 50) {
     const batch = ids.slice(i, i + 50);
     const url =
-      'https://www.googleapis.com/youtube/v3/videos?part=statistics' +
+      'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics' +
       `&id=${batch.join(',')}&key=${API_KEY}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`YouTube API ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    for (const item of data.items || []) {
-      counts.set(item.id, Number(item.statistics?.viewCount || 0));
+    const body = await res.json();
+    for (const item of body.items || []) {
+      data.set(item.id, {
+        views: Number(item.statistics?.viewCount || 0),
+        publishedAt: Date.parse(item.snippet?.publishedAt || 0) || 0,
+      });
     }
   }
-  return counts;
+  return data;
 }
 
 function updateFeatured(html, id) {
   const tile = (html.match(TILE_RE) || []).find((t) => t.includes(`data-video="${id}"`));
-  // No grid tile for this id (e.g. it is already the featured-only video):
-  // leave the featured frame as-is.
+  // No grid tile for this id: leave the featured frame as-is.
   if (!tile) return html;
 
   const attr = (re, fallback) => (tile.match(re) || [, fallback])[1];
@@ -90,15 +107,27 @@ function sortGrids(html) {
 
 (async () => {
   const original = fs.readFileSync(INDEX, 'utf8');
-  const ids = [...new Set([...original.matchAll(/data-video="([^"]+)"/g)].map((m) => m[1]))];
-  console.log(`Found ${ids.length} video ids`);
+  const ids = commercialIds(original);
+  if (!ids.length) throw new Error('No commercial video ids found');
+  console.log(`Found ${ids.length} commercial video ids`);
 
-  const counts = await fetchViewCounts(ids);
-  if (!counts.size) throw new Error('YouTube API returned no statistics');
-  const [trendingId, views] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
-  console.log(`Top video by views: ${trendingId} (${views.toLocaleString()} views)`);
+  const stats = await fetchVideoData(ids);
+  if (!stats.size) throw new Error('YouTube API returned no statistics');
 
-  let html = updateFeatured(original, trendingId);
+  const cutoff = Date.now() - SIX_MONTHS_MS;
+  let candidates = [...stats.entries()].filter(([, s]) => s.publishedAt >= cutoff);
+  if (!candidates.length) {
+    console.warn('No commercial published in the last 6 months — falling back to all-time views');
+    candidates = [...stats.entries()];
+  }
+  candidates.sort((a, b) => b[1].views - a[1].views);
+  const [featuredId, top] = candidates[0];
+  console.log(
+    `Featured pick: ${featuredId} (${top.views.toLocaleString()} views, ` +
+    `published ${new Date(top.publishedAt).toISOString().slice(0, 10)})`,
+  );
+
+  let html = updateFeatured(original, featuredId);
   html = sortGrids(html);
 
   if (html !== original) {
